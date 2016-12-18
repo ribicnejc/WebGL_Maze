@@ -706,7 +706,7 @@ function checkForCollision() {
 }
 
 function proceedToNextLevel(){
-    document.location.href = "./seminarskaTexture.html";
+    document.location.href = "./Level2.html";
 }
 
 function resetStartPosition() {

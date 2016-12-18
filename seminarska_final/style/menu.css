@@ -23,7 +23,8 @@ td {
 
 div
 {
-  line-height: 300px;  <-- this is what you must define 
+  line-height: 300px;
+    /*<-- this is what you must define */
   vertical-align: middle;
   background-color: black;
 }
