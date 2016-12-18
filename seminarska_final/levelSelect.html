@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<title>LEvel select</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="stylesheet" href="./mainMenu.css" type="text/css">
+		<script type="text/javascript" src="./scripts/glMatrix-0.9.5.min.js"></script>
+		<!--<script src="./mainMenu.js" type="text/javascript"></script> -->
+
+	</head>
+	<body>
+		
+		<div id="content">
+			<h1>Select a Level</h1>
+			<button id="level1" onclick="level1()">Level 1</button>
+			<br>
+			<button id="level2" onclick="level2()">Level 2</button>
+<!-- 			<button id="theme">Pick a theme</button> -->
+			<br>
+			<br>
+		</div>
+		<script>
+
+			function level1(){
+				preusmeri("./seminarskaGame.html");
+			}
+
+			function level2(){
+				preusmeri("./seminarskaTexture.html");
+			}
+
+			function preusmeri(inputurl){
+				//var b = document.getElementById('name').value,
+				url = inputurl; //+ encodeURIComponent(b);
+				document.location.href = url;
+			}
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,31 @@
+<html>
+	<head>
+		<title>Game Over</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="stylesheet" href="./style/seminarska.css" type="text/css">
+		<!--<script src="./scripts/seminarskaMenu.js" type="text/javascript"></script> -->
+	    <script>
+	    function retry(){
+				preusmeri("./seminarskaGame.html");
+			}
+
+			function preusmeri(inputurl){
+				//var b = document.getElementById('name').value,
+				url = inputurl; //+ encodeURIComponent(b);
+				document.location.href = url;
+			}
+
+		
+	    </script>
+	</head>
+	<body onload="start()" bgcolor="#000000">
+		<div id="content">
+			<h1>Game Over</h1>
+			<button type="button" id="retry" onclick="retry()">Retry?</button>
+
+			<br />
+			<br />
+			 <!--<a href="./"><- Back</a>-->
+		</div>
+	</body>
+</html>

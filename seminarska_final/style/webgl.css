@@ -1,0 +1,76 @@
+#content {
+	width: 100%;
+	position: relative;
+	text-align: center;
+}
+
+#bloodBG{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	/*left: calc(50% - 640px);*/
+	box-shadow: inset 0px 0px 90px 0px rgba(255,0,0,1);
+	width: 1280px;
+	height: 600px;
+	border: 1px solid black;
+	margin: 0 auto;
+	display: none;
+}
+
+
+
+
+#hearts{
+	position: absolute;
+	top: 20px;
+	left: 40px;
+}
+
+canvas {
+	min-width: 100%;
+	min-height: 100%;
+
+	display: inline;
+	border: 0px solid black;
+	position: absolute;
+	top:0;
+	left:0;
+	right: 0;
+	margin: 0 auto;
+}
+
+h1 {
+	text-align: left;
+}
+
+img {
+	float: left;
+	width: 32px;
+	height: 32px;
+	padding-right: 10px;
+}
+
+h2 {
+	text-align: left;
+}
+
+ul {
+	text-align: left;
+}
+
+td {
+	width: 200px;
+}
+
+#loadingtext {
+	position:absolute;
+	top:250px;
+	left:150px;
+	font-size:2em;
+	color: white;
+}
+
+body {
+	background-color: black;
+}

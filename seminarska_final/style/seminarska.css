@@ -1,0 +1,59 @@
+#content {
+	width: 100%;
+	text-align: center;
+}
+
+canvas {
+	display: inline;
+	border: 1px solid black;
+}
+
+h1 {
+	font-size: 200px;
+	text-align: center;
+	color:skyblue;
+}
+
+h2 {
+	text-align: left;
+}
+
+ul {
+	text-align: left;
+}
+
+td {
+	width: 200px;
+}
+
+div
+{
+  line-height: 300px; /* <-- this is what you must define */
+  vertical-align: middle;
+}
+
+button{
+	font-size:80px;
+	height:200px;
+	width:400px;
+	background-color: skyblue;
+	border-radius: 50%;
+
+}
+
+button:hover{
+	font-size:80px;
+	height:200px;
+	width:400px;
+	background-color: #ffffff;
+	border-radius: 50%;
+
+}
+
+#loadingtext {
+	position:absolute;
+	top:250px;
+	left:150px;
+	font-size:2em;
+	color: white;
+}
