@@ -932,7 +932,8 @@ function drawLedder() {
     }
     //TODO add new texture
     specifieTextureForDoor();
-    mat4.translate(mvMatrix, [0,2,0]);
+    mat4.translate(mvMatrix, [0,1,0]);
+    mat4.scale(mvMatrix, [0.8, 0.8, 0.8]);
     setMatrixUniforms();
     gl.drawElements(gl.TRIANGLES, cubeVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
 
