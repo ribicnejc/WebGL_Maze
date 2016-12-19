@@ -43,6 +43,7 @@ var cubeTexture3;
 var cubeTexture4;
 var cubeTexture5;
 var cubeTexture6;
+var cubeTexture7;
 var groundTexture;
 
 // Variable that stores  loading state of textures.
@@ -236,7 +237,7 @@ function setMatrixUniforms() {
 // the job; it gets called each time a texture finishes loading.
 //
 
-function handleTextureLoaded6(texture){
+function handleTextureLoaded7(texture){
     gl.bindTexture(gl.TEXTURE_2D, texture);
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, texture.image);
@@ -246,6 +247,28 @@ function handleTextureLoaded6(texture){
     gl.bindTexture(gl.TEXTURE_2D, null);
 
     texturesLoaded = true;
+}
+
+function initTextures7(){
+    cubeTexture7 = gl.createTexture();
+    cubeTexture7.image = new Image();
+    cubeTexture7.image.onload = function () {
+        handleTextureLoaded7(cubeTexture7);
+    };  // async loading
+    cubeTexture7.image.src = "./assets/sunset.jpg";
+}
+
+
+function handleTextureLoaded6(texture){
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, texture.image);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);
+    gl.generateMipmap(gl.TEXTURE_2D);
+    gl.bindTexture(gl.TEXTURE_2D, null);
+
+    initTextures7();
 }
 
 function initTextures6(){
@@ -841,6 +864,22 @@ function specifieTextureForDoor(){
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer);
 }
 
+function specifieTextureForSky(){
+    gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexPositionBuffer);
+    gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, cubeVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    // Set the texture coordinates attribute for the vertices.
+    gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexTextureCoordBuffer);
+    gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, cubeVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    // Specify the texture to map onto the faces.
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, cubeTexture7);
+    gl.uniform1i(shaderProgram.samplerUniform, 0);
+
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer);
+}
+
 function drawGhosts() {
     var ghostSpeed = 0.05;
     mvPushMatrix();
@@ -900,6 +939,17 @@ function drawFloor() {
         mvPushMatrix();
         for (var j = 0; j < stKock; j++) {
             mat4.translate(mvMatrix, [2, 0, 0]);
+            if(i == 8 && j == 8){
+                mvPushMatrix();
+                specifieTextureForSky();
+
+                mat4.scale(mvMatrix, [50, 50, 50]);
+                setMatrixUniforms();
+                gl.drawElements(gl.TRIANGLES, cubeVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+
+                specifieTextureForFloor();
+                mvPopMatrix();
+            }
             if (i == 7 && j == 7) {
                 doorTextureCube();
                 drawLedder();
