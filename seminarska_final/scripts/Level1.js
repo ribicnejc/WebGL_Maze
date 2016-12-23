@@ -255,7 +255,7 @@ function initTextures7(){
     cubeTexture7.image.onload = function () {
         handleTextureLoaded7(cubeTexture7);
     };  // async loading
-    cubeTexture7.image.src = "./assets/sunset.jpg";
+    cubeTexture7.image.src = "./assets/gradient.jpg";
 }
 
 
@@ -642,7 +642,8 @@ function checkForCollision() {
     var ledder = false;
     if (!fallingDown && !collide && cameraCoord[1] < 10.6) {
         for (var i = 0; i < lestev.length; i++) {
-            if (cameraCoord[2] > lestev[i][2] - 0.7 && cameraCoord[2] < lestev[i][3] + 1 && cameraCoord[0] > lestev[i][0] - 0.8 && cameraCoord[0] < lestev[i][1] + 1) {
+            //0.7, 1
+            if (cameraCoord[2] > lestev[i][2] - 0.3 && cameraCoord[2] < lestev[i][3] + 0.3 && cameraCoord[0] > lestev[i][0] - 0.8 && cameraCoord[0] < lestev[i][1] + 1) {
                 if (cameraCoord[2] > lestev[i][2] + 0.35 && cameraCoord[2] < lestev[i][3]) {
                     //zaustavim premik sedaj moram postopoma zvisevat visino
                     mat4.translate(pMatrix, [-cameraLastPos[0], -yPosition, -cameraLastPos[2]]);
@@ -707,7 +708,8 @@ function checkForCollision() {
         document.location.href = "./seminarskaGO1.html";
         // takeLife();
     }
-    var roadOnSky = [4, 17, 14, 16];
+    //4,17,14,16
+    var roadOnSky = [4, 18, 13, 16.5];
     if (cameraCoord[1] > 10.5 && !fallingDown) {
         if (!(cameraCoord[2] > roadOnSky[2] && cameraCoord[2] < roadOnSky[3])) {
             fallingDown = true;
@@ -943,7 +945,8 @@ function drawFloor() {
                 mvPushMatrix();
                 specifieTextureForSky();
 
-                mat4.scale(mvMatrix, [50, 50, 50]);
+                mat4.translate(mvMatrix, [0, 50, 0]);
+                mat4.scale(mvMatrix, [25, 50, 25]);
                 setMatrixUniforms();
                 gl.drawElements(gl.TRIANGLES, cubeVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
 
