@@ -52,6 +52,7 @@ var groundTexture;
 var victoryBoxTexture;
 var cubeTextureGhosts;
 var cubeTexture5;
+var cubeTexture6;
 
 // Variable that stores  loading state of textures.
 var texturesLoaded = false;
@@ -473,6 +474,26 @@ function handleTextureLoadedGhosts(texture) {
     initTextures5();
 }
 
+function initTextures6(){
+    cubeTexture6 = gl.createTexture();
+    cubeTexture6.image = new Image();
+    cubeTexture6.image.onload = function () {
+        handleTextureLoaded6(cubeTexture6);
+    };  // async loading
+    cubeTexture6.image.src = "./assets/sky.png";
+}
+
+function handleTextureLoaded6(texture){
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, texture.image);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);
+    gl.generateMipmap(gl.TEXTURE_2D);
+    gl.bindTexture(gl.TEXTURE_2D, null);
+
+    texturesLoaded = true;
+}
 
 //
 // initBuffers
@@ -642,6 +663,7 @@ function drawScene() {
   //SAMO OPAZOVANJE
 
 
+
   // OBRAČANJE KAMERE LEVO IN DESNO
   //mat4.translate(pMatrix, [0,0,-6]);
   mat4.rotate(pMatrix, degToRad(-yaw), [0,1,0]);
@@ -684,6 +706,12 @@ function drawScene() {
   specifeTextureForGhosts();
   drawGhosts();
 
+  specifeTextureForSky() //sky block
+  mvPushMatrix();
+  mat4.scale(mvMatrix, [50, 50, 50]);
+  setMatrixUniforms();
+  gl.drawElements(gl.TRIANGLES, cubeVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+  mvPopMatrix();
   //gl.drawElements(gl.TRIANGLES, cubeVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0); 
 
 
@@ -785,6 +813,24 @@ function specifeTextureAndCube(){
   gl.uniform1i(shaderProgram.samplerUniform, 0);
 
   gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer);
+}
+
+function specifeTextureForSky() {
+    // Draw the cube by binding the array buffer to the cube's vertices
+    // array, setting attributes, and pushing it to GL.
+    gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexPositionBuffer);
+    gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, cubeVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    // Set the texture coordinates attribute for the vertices.
+    gl.bindBuffer(gl.ARRAY_BUFFER, cubeVertexTextureCoordBuffer);
+    gl.vertexAttribPointer(shaderProgram.textureCoordAttribute, cubeVertexTextureCoordBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+    // Specify the texture to map onto the faces.
+    gl.activeTexture(gl.TEXTURE0);
+    gl.bindTexture(gl.TEXTURE_2D, cubeTexture6);
+    gl.uniform1i(shaderProgram.samplerUniform, 0);
+
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cubeVertexIndexBuffer);
 }
 
 
@@ -1217,6 +1263,7 @@ function start() {
     initTexturesFloor();
     initTexturesVictoryBox();
     initTexturesGhosts();
+    initTextures6();
     
     // Set up to draw the scene periodically.
     setInterval(function() {
