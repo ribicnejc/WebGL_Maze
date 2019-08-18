@@ -2,10 +2,10 @@ version: '3'
 services:
   app:
     build:
-      context: ..
+      context: .
       dockerfile: .docker/Dockerfile
-    image: funtime-docker
     restart: always
+    image: webgl-docker
     ports:
       - 8004:80
 #    volumes:
